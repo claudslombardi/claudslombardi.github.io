@@ -1,7 +1,7 @@
-// This script handles the single-page navigation logic.
+// This script handles the single-page navigation logic and the mobile menu.
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all navigation buttons and page sections
+    // --- Page Navigation Logic ---
     const navButtons = document.querySelectorAll('.nav-button');
     const pageSections = document.querySelectorAll('.page-section');
     const homeButton = document.getElementById('home-button');
@@ -37,6 +37,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Mobile Menu Logic ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    // Toggle the mobile menu visibility when the button is clicked
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // Hide the mobile menu after a link is clicked
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
+
+
     // By default, show the "About" page when the site loads
     showPage('About');
 });
+
