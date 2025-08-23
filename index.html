@@ -29,13 +29,27 @@
             <h1 id="home-button" class="text-2xl font-bold text-gray-800 cursor-pointer">
                 Dr Claudio Lombardi
             </h1>
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-6">
                 <button data-page="About" class="nav-button text-gray-600 hover:text-teal-500 transition-colors duration-300 font-medium">About</button>
                 <a href="https://www.abdn.ac.uk/people/claudio.lombardi#publications" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-teal-500 transition-colors duration-300 font-medium">Publications</a>
                 <button data-page="Projects" class="nav-button text-gray-600 hover:text-teal-500 transition-colors duration-300 font-medium">Projects</button>
                 <button data-page="CV" class="nav-button text-gray-600 hover:text-teal-500 transition-colors duration-300 font-medium">CV</button>
             </nav>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </div>
+        <!-- Mobile Navigation Menu -->
+        <nav id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2">
+            <button data-page="About" class="nav-button mobile-nav-link block w-full text-left py-2 text-gray-600 hover:text-teal-500 font-medium">About</button>
+            <a href="https://www.abdn.ac.uk/people/claudio.lombardi#publications" target="_blank" rel="noopener noreferrer" class="mobile-nav-link block py-2 text-gray-600 hover:text-teal-500 font-medium">Publications</a>
+            <button data-page="Projects" class="nav-button mobile-nav-link block w-full text-left py-2 text-gray-600 hover:text-teal-500 font-medium">Projects</button>
+            <button data-page="CV" class="nav-button mobile-nav-link block w-full text-left py-2 text-gray-600 hover:text-teal-500 font-medium">CV</button>
+        </nav>
     </header>
 
     <!-- Main Content Area -->
@@ -47,7 +61,7 @@
                 <div class="p-8 bg-gray-50 rounded-lg">
                     <div class="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
                         <img 
-                            src="https://placehold.co/150x150/E2E8F0/4A5568?text=C+L" 
+                            src="profile_pic.jpg" 
                             alt="Dr Claudio Lombardi" 
                             class="w-36 h-36 rounded-full object-cover shadow-md"
                             onerror="this.onerror=null;this.src='https://placehold.co/150x150/E2E8F0/4A5568?text=Image+Error';"
