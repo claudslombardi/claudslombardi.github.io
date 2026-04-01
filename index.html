@@ -11,7 +11,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .page-section { transition: opacity 0.3s ease-in-out; }
-        /* This ensures the hidden class works with Tailwind */
+        /* Forces Tailwind to hide elements correctly */
         .hidden { display: none !important; }
     </style>
 </head>
@@ -33,29 +33,34 @@
 
         <section id="About" class="page-section">
             <div class="p-8 bg-gray-50 rounded-lg">
-                <p class="text-gray-700">I am a lecturer specializing in competition law and policy...</p>
+                <div class="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
+                    <img src="profile_pic.jpg" alt="Dr Claudio Lombardi" class="w-36 h-36 rounded-full object-cover shadow-md" onerror="this.src='https://placehold.co/150x150?text=CL';"/>
+                    <div class="text-gray-700 leading-relaxed space-y-4 flex-1">
+                        <p>I am a lecturer specializing in competition law and policy, the regulation of digital platforms, and empirical legal analysis.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="Projects" class="page-section hidden">
             <div class="p-8 bg-gray-50 rounded-lg">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8">Projects</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
-                    <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-                        <h3 class="font-bold text-xl mb-2">Empirical Analysis</h3>
-                        <p class="text-gray-600 text-sm mb-4">Quantitative methods in legal datasets.</p>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-5">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800">Empirical Analysis</h3>
+                        <p class="text-gray-600 text-sm">Quantitative methods applied to legal enforcement trends and policy impacts.</p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-                        <h3 class="font-bold text-xl mb-2">DMA Empirical</h3>
-                        <p class="text-gray-600 text-sm mb-4">Effectiveness of the Digital Markets Act.</p>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-5">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800">DMA Empirical Study</h3>
+                        <p class="text-gray-600 text-sm">Assessing Digital Markets Act effectiveness and platform compliance strategies.</p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md border-2 border-teal-500 p-5">
-                        <h3 class="font-bold text-xl mb-2">Competition Law Lab</h3>
-                        <p class="text-gray-600 text-sm mb-4">Interactive guides for Art 101 and 102.</p>
-                        <a href="lab.html" class="block text-center bg-teal-500 text-white font-bold py-2 rounded">Launch Lab</a>
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-teal-500 p-5 scale-105">
+                        <h3 class="font-bold text-xl mb-2 text-teal-700">Competition Law Lab</h3>
+                        <p class="text-gray-600 text-sm mb-4">Interactive guides for applying Art 101 & 102 TFEU.</p>
+                        <a href="competitionlawlab.html" class="block text-center bg-teal-500 text-white font-bold py-2 rounded hover:bg-teal-600 transition">Launch Lab</a>
                     </div>
 
                 </div>
@@ -65,12 +70,42 @@
         <section id="CV" class="page-section hidden">
             <div class="p-8 bg-gray-50 rounded-lg text-center">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Curriculum Vitae</h2>
-                <button class="bg-teal-500 text-white px-6 py-2 rounded">Download CV</button>
+                <p class="mb-6 text-gray-600">View or download my full professional CV.</p>
+                <a href="#" class="inline-block bg-teal-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-teal-600 transition">Download CV</a>
             </div>
         </section>
 
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.page-section');
+            const homeButton = document.getElementById('home-button');
+
+            function showPage(pageId) {
+                console.log("Switching to page:", pageId); // Useful for debugging
+                sections.forEach(section => {
+                    if (section.id === pageId) {
+                        section.classList.remove('hidden');
+                        section.style.opacity = '1';
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const pageId = button.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+
+            if (homeButton) {
+                homeButton.addEventListener('click', () => showPage('About'));
+            }
+        });
+    </script>
 </body>
 </html>
