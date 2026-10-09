@@ -5,33 +5,11 @@
   const $ = (id) => document.getElementById(id);
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const fmt = (s) => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); // *italic*
   const ext = (url, label) => `<a href="${esc(url)}"${/^https?:/.test(url) ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
 
-  const citeHTML = (p) =>
-    `<li>${fmt(p.cite)}${p.link ? ` <span class="pub-link">${ext(p.link, p.oa ? 'Open access' : 'Link')}</span>` : ''}</li>`;
-
-  // --- News
-  if ($('news-list') && S.news) {
-    $('news-list').innerHTML = S.news.map((n) =>
-      `<li><span class="date">${esc(n.date)}</span> ${n.link ? ext(n.link, esc(n.text)) : esc(n.text)}</li>`
-    ).join('');
-  }
-
-  // --- Publications
-  const pubs = (S.publications || []).slice().sort((a, b) => b.year - a.year);
-  if ($('selected-pubs')) $('selected-pubs').innerHTML = pubs.filter((p) => p.selected).map(citeHTML).join('');
-  if ($('pub-groups')) {
-    const groups = [['book', 'Books'], ['article', 'Journal articles'], ['chapter', 'Book chapters'], ['policy', 'Policy and consultation responses']];
-    $('pub-groups').innerHTML = groups.map(([key, label]) => {
-      const items = pubs.filter((p) => p.type === key);
-      return items.length ? `<h2>${label}</h2><ol class="pubs">${items.map(citeHTML).join('')}</ol>` : '';
-    }).join('');
-  }
-
-  // --- Research cards
-  if ($('research-cards') && S.research) {
-    $('research-cards').innerHTML = S.research.map((r) => `
+  // --- Project cards
+  if ($('project-cards') && S.projects) {
+    $('project-cards').innerHTML = S.projects.map((r) => `
       <article class="card">
         ${r.image ? `<img src="${esc(r.image)}" alt="${esc(r.imageAlt || '')}" loading="lazy"${r.imageFallback ? ` data-fallback="${esc(r.imageFallback)}"` : ''}>` : ''}
         <div class="card-body">
@@ -44,7 +22,7 @@
         </div>
       </article>`).join('');
     // Try the fallback image once, then hide the image rather than show a broken icon
-    $('research-cards').querySelectorAll('img').forEach((img) => {
+    $('project-cards').querySelectorAll('img').forEach((img) => {
       img.addEventListener('error', () => {
         if (img.dataset.fallback) { img.src = img.dataset.fallback; delete img.dataset.fallback; }
         else img.remove();
@@ -52,9 +30,8 @@
     });
   }
 
-  // --- Teaching & profile lists
+  // --- Profile lists
   const list = (id, items, render) => { if ($(id) && items) $(id).innerHTML = items.map(render).join(''); };
-  list('teaching-list', S.teaching, (t) => `<li><strong>${esc(t.title)}</strong>${t.meta ? ` <span class="muted">— ${esc(t.meta)}</span>` : ''}</li>`);
   const pf = S.profile || {};
   list('pf-positions', pf.positions, (x) => `<li>${esc(x)}</li>`);
   list('pf-engagement', pf.engagement, (x) => `<li>${esc(x)}</li>`);
@@ -69,9 +46,9 @@
   // --- Footer year
   if ($('year')) $('year').textContent = new Date().getFullYear();
 
-  // --- Hash routing: #about, #research, ... (shareable links, back button works)
+  // --- Hash routing: #about, #projects, ... (shareable links, back button works)
   const pages = Array.from(document.querySelectorAll('.page'));
-  const navLinks = Array.from(document.querySelectorAll('.site-nav a'));
+  const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
   const nav = $('site-nav');
   const menuBtn = $('menu-btn');
   const baseTitle = document.title;
