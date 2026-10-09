@@ -1,0 +1,108 @@
+/* Plain CSS — no Tailwind/CDN or build step required. */
+:root {
+  --ink: #1c2321;
+  --muted: #5b6663;
+  --line: #e3e8e6;
+  --bg: #ffffff;
+  --soft: #f4f7f6;
+  --accent: #0f5c5a;
+  --accent-ink: #0b4644;
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.6; font-size: 17px; }
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--accent-ink); }
+:focus-visible { outline: 3px solid #f2b43c; outline-offset: 2px; }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 12px; top: 12px; background: #fff; padding: 8px 12px; z-index: 20; }
+
+h1, h2 { font-family: var(--serif); font-weight: 600; line-height: 1.25; }
+h1 { font-size: 2.1rem; margin: 0 0 .4rem; }
+h2 { font-size: 1.3rem; margin: 2rem 0 .8rem; }
+.muted { color: var(--muted); }
+.small { font-size: .88rem; }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.site-nav { display: flex; gap: 26px; }
+.site-nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: .95rem; padding: 4px 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover, .site-nav a.current { color: var(--accent); border-bottom-color: var(--accent); }
+.menu-btn { display: none; background: none; border: 0; color: var(--ink); padding: 8px; cursor: pointer; }
+
+@media (max-width: 760px) {
+  .menu-btn { display: block; }
+  .site-nav { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0; background: #fff; border-bottom: 1px solid var(--line); padding: 8px 20px 14px; }
+  .site-nav.open { display: flex; }
+  .site-nav a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+}
+
+/* Pages: all visible without JS; one at a time with JS */
+main.wrap { padding: 40px 20px 64px; }
+.js .page { display: none; }
+.js .page.active { display: block; animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .js .page.active { animation: none; } html { scroll-behavior: auto; } }
+
+/* About */
+.hero { display: flex; gap: 36px; align-items: flex-start; }
+.portrait { width: 176px; height: 176px; border-radius: 50%; object-fit: cover; object-position: 50% 25%; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.role { color: var(--accent); font-weight: 500; margin: 0 0 1rem; }
+.lead { font-size: 1.12rem; }
+@media (max-width: 760px) { .hero { flex-direction: column; gap: 20px; } .portrait { width: 132px; height: 132px; } h1 { font-size: 1.75rem; } }
+
+.tags, .links { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tags li { background: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: .85rem; color: var(--muted); }
+.links { margin-top: 1.2rem; gap: 6px 18px; }
+.links a { font-weight: 500; font-size: .95rem; }
+
+.feature { display: block; margin: 40px 0 8px; padding: 22px 26px; border-radius: 10px; background: var(--accent); color: #fff; text-decoration: none; transition: background .15s; }
+.feature:hover { background: var(--accent-ink); color: #fff; }
+.feature span { display: block; }
+.feature-kicker { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; opacity: .8; }
+.feature-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin: 4px 0; }
+.feature-text { opacity: .92; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; }
+@media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 0; } }
+
+.news { list-style: none; padding: 0; margin: 0; }
+.news li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.date { display: inline-block; min-width: 3.2em; font-weight: 600; color: var(--accent); }
+
+.pubs { padding-left: 1.2em; margin: 0; }
+.pubs li { margin-bottom: .8rem; font-size: .95rem; }
+.pub-link { font-size: .85rem; white-space: nowrap; }
+
+/* Research cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 24px; }
+.card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.card img { width: 100%; height: 170px; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); background: var(--soft); }
+.card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.card h2 { margin: .4rem 0 .6rem; font-size: 1.15rem; }
+.card p { margin: 0 0 .8rem; font-size: .95rem; }
+.card-link { margin-top: auto !important; font-weight: 600; }
+.badge { align-self: flex-start; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); background: #e4f0ef; padding: 2px 9px; border-radius: 999px; }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin: 0 0 .9rem; }
+.stats div { background: var(--soft); border-radius: 6px; padding: 8px 4px; text-align: center; }
+.stats dt { font-weight: 600; font-size: 1rem; }
+.stats dd { margin: 0; font-size: .7rem; color: var(--muted); line-height: 1.2; }
+
+/* Teaching & profile */
+.plain-list { padding-left: 1.1em; }
+.plain-list li { margin-bottom: .5rem; }
+.profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 36px; }
+.contact-box { margin-top: 32px; padding: 22px 26px; background: var(--soft); border-radius: 10px; }
+.contact-box h2 { margin-top: 0; }
+.button { display: inline-block; background: var(--accent); color: #fff; padding: 9px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; }
+.button:hover { background: var(--accent-ink); color: #fff; }
+
+.site-footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 24px 0 36px; border-top: 1px solid var(--line); }
