@@ -123,7 +123,7 @@ window.SITE = {
 
   profile: {
     positions: [
-      "Senior Lecturer in Law, University of Aberdeen",
+      "Senior Lecturer (Associate Professor) in Law, University of Aberdeen",
       "Associate Director, Centre for Commercial Law",
       "Impact Lead, School of Law",
       "Member, University Senate"
